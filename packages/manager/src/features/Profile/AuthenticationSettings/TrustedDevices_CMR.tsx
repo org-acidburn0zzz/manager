@@ -8,12 +8,12 @@ import TableHead from 'src/components/core/TableHead';
 import Typography from 'src/components/core/Typography';
 import Pagey, { PaginationProps } from 'src/components/Pagey';
 import PaginationFooter from 'src/components/PaginationFooter';
-import Table from 'src/components/Table';
-import TableCell from 'src/components/TableCell';
-import TableRow from 'src/components/TableRow';
+import Table from 'src/components/Table/Table_CMR';
+import TableCell from 'src/components/TableCell/TableCell_CMR';
+import TableRow from 'src/components/TableRow/TableRow_CMR';
 import ToggleState from 'src/components/ToggleState';
 import Dialog from './TrustedDevicesDialog';
-import TrustedDevicesTable from './TrustedDevicesTable';
+import TrustedDevicesTable from './TrustedDevicesTable_CMR';
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   deviceCell: {},
   ipCell: {},
   usedCell: {
-    minWidth: 120
+    minWidth: 125
   },
   expireCell: {
-    minWidth: 100
+    minWidth: 95
   },
   disabled: {
     '& *': {

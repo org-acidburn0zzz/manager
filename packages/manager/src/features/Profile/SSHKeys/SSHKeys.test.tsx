@@ -14,14 +14,6 @@ describe('SSHKeys', () => {
     const wrapper = shallow(
       <SSHKeys
         {...pageyProps}
-        classes={{
-          root: '',
-          sshKeysHeader: '',
-          headline: '',
-          addNewWrapper: '',
-          createdCell: '',
-          actionCell: ''
-        }}
         data={[
           { id: 1, label: '', ssh_key: '', created: '', fingerprint: '' },
           { id: 2, label: '', ssh_key: '', created: '', fingerprint: '' },
@@ -31,10 +23,10 @@ describe('SSHKeys', () => {
       />
     );
 
-    it('should have table header with SSH Keys title', () => {
+    it('should have table header with SSH Keys title and an action', () => {
       expect(
         wrapper
-          .find('WithStyles(ForwardRef(TableHead))[data-qa-table-head]')
+          .find(`WithStyles(TableHeader)[title="SSH Keys"][action]`)
           .exists()
       ).toBeTruthy();
     });
@@ -60,16 +52,8 @@ describe('SSHKeys', () => {
     const wrapper = shallow(
       <SSHKeys
         {...pageyProps}
-        classes={{
-          root: '',
-          sshKeysHeader: '',
-          headline: '',
-          addNewWrapper: '',
-          createdCell: '',
-          actionCell: ''
-        }}
-        data={undefined}
         loading={true}
+        data={undefined}
         timezone={'GMT'}
       />
     );
@@ -81,16 +65,8 @@ describe('SSHKeys', () => {
     const wrapper = shallow(
       <SSHKeys
         {...pageyProps}
-        classes={{
-          root: '',
-          sshKeysHeader: '',
-          headline: '',
-          addNewWrapper: '',
-          createdCell: '',
-          actionCell: ''
-        }}
-        data={undefined}
         error={[{ reason: 'error here' }]}
+        data={undefined}
         timezone={'GMT'}
       />
     );
@@ -100,19 +76,7 @@ describe('SSHKeys', () => {
 
   it('should display TableEmptyState if done loading and count is 0', () => {
     const wrapper = shallow(
-      <SSHKeys
-        {...pageyProps}
-        classes={{
-          root: '',
-          sshKeysHeader: '',
-          headline: '',
-          addNewWrapper: '',
-          createdCell: '',
-          actionCell: ''
-        }}
-        data={undefined}
-        timezone={'GMT'}
-      />
+      <SSHKeys {...pageyProps} data={undefined} timezone={'GMT'} />
     );
 
     expect(

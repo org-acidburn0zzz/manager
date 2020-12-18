@@ -1,5 +1,6 @@
 import * as React from 'react';
-import InlineMenuAction from 'src/components/InlineMenuAction';
+
+import ActionMenu, { Action } from 'src/components/ActionMenu/ActionMenu';
 
 interface Props {
   id: number;
@@ -9,18 +10,34 @@ interface Props {
 
 type CombinedProps = Props;
 
-export const SSHKeyActionMenu: React.FC<CombinedProps> = props => {
-  const { id, label, onDelete } = props;
+class SSHKeyActionMenu extends React.Component<CombinedProps> {
+  createActions = () => {
+    const { id, label, onDelete } = this.props;
 
-  return (
-    <InlineMenuAction
-      key="Delete"
-      actionText="Delete"
-      onClick={() => {
-        onDelete(id, label);
-      }}
-    />
-  );
-};
+    return (closeMenu: Function): Action[] => {
+      const actions = [
+        {
+          title: 'Delete',
+          onClick: (e: React.MouseEvent<HTMLElement>) => {
+            onDelete(id, label);
+            closeMenu();
+            e.preventDefault();
+          }
+        }
+      ];
+
+      return actions;
+    };
+  };
+
+  render() {
+    return (
+      <ActionMenu
+        createActions={this.createActions()}
+        ariaLabel={`Action menu for SSH Key ${this.props.label}`}
+      />
+    );
+  }
+}
 
 export default SSHKeyActionMenu;

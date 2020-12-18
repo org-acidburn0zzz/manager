@@ -25,13 +25,10 @@ describe('APITokens', () => {
         accountCapabilities={[]}
         count={4}
         classes={{
-          root: '',
           headline: '',
           paper: '',
-          addNewWrapper: '',
-          addNewLink: '',
           labelCell: '',
-          actionMenu: ''
+          createdCell: ''
         }}
         title="Personal Access Tokens"
         type="Personal Access Token"

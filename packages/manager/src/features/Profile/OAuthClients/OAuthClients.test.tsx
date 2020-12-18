@@ -40,7 +40,7 @@ describe('OAuth Clients', () => {
   beforeEach(() => {
     wrapper = shallow(
       <OAuthClients
-        classes={{ root: '', headline: '', addNewWrapper: '', actionCell: '' }}
+        classes={{ root: '', title: '' }}
         {...pageyProps}
         data={mockData}
         setDocs={setDocs}

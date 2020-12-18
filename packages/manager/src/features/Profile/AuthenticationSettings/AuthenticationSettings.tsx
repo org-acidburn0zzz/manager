@@ -9,6 +9,7 @@ import { DocumentTitleSegment } from 'src/components/DocumentTitle';
 import Notice from 'src/components/Notice';
 import TabbedPanel from 'src/components/TabbedPanel';
 import { AccountsAndPasswords, SecurityControls } from 'src/documentation';
+import useFlags from 'src/hooks/useFlags';
 import { updateProfile as _updateProfile } from 'src/store/profile/profile.requests';
 import { MapState } from 'src/store/types';
 import ResetPassword from './ResetPassword';
@@ -16,6 +17,7 @@ import SecuritySettings from './SecuritySettings';
 import ThirdParty from './ThirdParty';
 import ThirdPartyContent from './ThirdPartyContent';
 import TrustedDevices from './TrustedDevices';
+import TrustedDevices_CMR from './TrustedDevices_CMR';
 import TwoFactor from './TwoFactor';
 
 const useStyles = makeStyles(() => ({
@@ -36,6 +38,8 @@ export const AuthenticationSettings: React.FC<CombinedProps> = props => {
     username,
     updateProfile
   } = props;
+
+  const flags = useFlags();
 
   const [success, setSuccess] = React.useState<string | undefined>(undefined);
 
@@ -62,7 +66,11 @@ export const AuthenticationSettings: React.FC<CombinedProps> = props => {
             updateProfile={updateProfile}
             disabled={thirdPartyEnabled}
           />
-          <TrustedDevices disabled={thirdPartyEnabled} />
+          {flags.cmr ? (
+            <TrustedDevices_CMR disabled={thirdPartyEnabled} />
+          ) : (
+            <TrustedDevices disabled={thirdPartyEnabled} />
+          )}
           {ipAllowlisting && (
             <SecuritySettings
               updateProfile={updateProfile}
@@ -77,10 +85,12 @@ export const AuthenticationSettings: React.FC<CombinedProps> = props => {
     }
   ];
 
-  tabs.push({
-    title: 'Third-Party Authentication',
-    render: () => <ThirdPartyContent authType={authType} />
-  });
+  if (flags.thirdPartyAuth) {
+    tabs.push({
+      title: 'Third-Party Authentication',
+      render: () => <ThirdPartyContent authType={authType} />
+    });
+  }
 
   const initialTab = 0;
 
